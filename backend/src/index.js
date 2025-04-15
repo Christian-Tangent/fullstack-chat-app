@@ -37,13 +37,13 @@ app.use("/api/messages", messageRoutes);
 // }
 
 if (process.env.NODE_ENV === "production") {
-  // Use absolute paths to avoid path resolution issues
-  const frontendDistPath = path.join(__dirname, "../frontend/dist");
-  app.use(express.static(frontendDistPath));
+  // Correct the path to the frontend build directory
+  const frontendBuildPath = path.join(__dirname, "../../frontend/dist");
+
+  app.use(express.static(frontendBuildPath));
 
   app.get("*", (req, res) => {
-    // Make sure this path is correctly formed
-    res.sendFile(path.join(frontendDistPath, "index.html"));
+    res.sendFile(path.join(frontendBuildPath, "index.html"));
   });
 }
 
